@@ -76,9 +76,11 @@ class Sudoku
 
 
   def numbers_in_parallel_row(cell_x_index, cell_y_index)
+    # nil
   end
 
   def numbers_in_parallel_column(cell_x_index, cell_y_index)
+    # nil
   end
 
   def number_empty_cells_in_own_cube_row(cell_x_index, cell_y_index)
@@ -87,29 +89,16 @@ class Sudoku
   def number_empty_cells_in_own_cuve_column(cell_x_index, cell_y_index)
   end
 
-
-
-
-
-
   def solve
+  end
+
+  def print_board
+    @board.each {|row|
+      p row
+    }
   end
 
   # Returns a string representing the current state of the board
   def to_s
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
