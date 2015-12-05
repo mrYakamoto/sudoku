@@ -76,9 +76,79 @@ class Sudoku
 
 
   def numbers_in_parallel_row(cell_x_index, cell_y_index)
+    # input: x index of cell (int) and y index of cell (int)
+    # output: 2d array consisiting of numbers from both parallel rows (array)
+    case cell_x_index % 3
+      when 0
+        # if own_row is at the top of the cube, return the next 2 rows
+        # puts "top row"
+        row1 = @board[cell_x_index + 1]
+        row2 = @board[cell_x_index + 2]
+      when 1
+        # if own_row is in the middle of the cube, return the rows to its top and bottom
+        # puts "middle row"
+        row1 = @board[cell_x_index - 1]
+        row2 = @board[cell_x_index + 1]
+      when 2
+        #if own_row is at the bottom, return the 2 rows on top
+        # puts "bottom row"
+        row1 = @board[cell_x_index - 1]
+        row2 = @board[cell_x_index - 2]
+      end
+      return [row1, row2]
   end
 
   def numbers_in_parallel_column(cell_x_index, cell_y_index)
+    # input: x index of cell (int) and y index of cell (int)
+    # output: 2d array consisiting of numbers from both parallel columns (array)
+    case cell_x_index % 3
+      when 0
+        # if own_col is on the left side of the cube, return the 2 columns to its right
+        # puts "left col"
+        row1 = []
+        row_counter = 0
+        9.times {
+          row1 << @board[row_counter][cell_y_index + 1]
+          row_counter += 1
+        }
+        row_counter = 0
+        row2 = []
+        9.times {
+          row2 << @board[row_counter][cell_y_index + 2]
+          row_counter += 1
+        }
+      when 1
+        # if own_col is in the middle of the cube, return the columns to its left and right
+        # puts "mid col"
+        row1 = []
+        row_counter = 0
+        9.times {
+          row1 << @board[row_counter][cell_y_index - 1]
+          row_counter += 1
+        }
+        row_counter = 0
+        row2 = []
+        9.times {
+          row2 << @board[row_counter][cell_y_index + 1]
+          row_counter += 1
+        }
+      when 2
+        # if own_col is on the right side of the cube, return the 2 columns to its left
+        # puts "right col"
+        row1 = []
+        row_counter = 0
+        9.times {
+          row1 << @board[row_counter][cell_y_index - 1]
+          row_counter += 1
+        }
+        row_counter = 0
+        row2 = []
+        9.times {
+          row2 << @board[row_counter][cell_y_index - 2]
+          row_counter += 1
+        }
+      end
+      return [row1, row2]
   end
 
   def number_empty_cells_in_own_cube_row(cell_x_index, cell_y_index)
@@ -87,29 +157,38 @@ class Sudoku
   def number_empty_cells_in_own_cuve_column(cell_x_index, cell_y_index)
   end
 
-
-
-
-
-
   def solve
+    p "parallel rows: "
+    p numbers_in_parallel_row(3, 3)
+    p "parallel columns: "
+    p numbers_in_parallel_column(3, 3)
+  end
+
+  def pretty_print_board
+    puts "- - - - - - - - - - - - - - - -"
+    cube_horiz_print_counter = 1
+    @board.each {|row|
+      cube_vert_print_counter = 1
+      print "| "
+      row.each { |cell|
+        print " " + cell + " "
+        print "|" if cube_vert_print_counter == 3 || cube_vert_print_counter == 6
+        cube_vert_print_counter += 1
+      }
+      print "| "
+      puts
+      puts "- - - - - - - - - - - - - - - -" if cube_horiz_print_counter == 3 || cube_horiz_print_counter == 6
+      cube_horiz_print_counter += 1
+    }
+    puts "- - - - - - - - - - - - - - - -"
   end
 
   # Returns a string representing the current state of the board
   def to_s
+    board_as_string = ""
+    board.each do |row|
+      board_as_string += row.join("")
+    end
+    return board_as_string
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
