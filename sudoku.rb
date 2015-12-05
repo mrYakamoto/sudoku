@@ -83,6 +83,7 @@ class Sudoku
     column.each { |num| eliminate_possible_numbers(num)}
   end
 
+<<<<<<< HEAD
   def eliminate_numbers_in_own_cube(cell_x_index, cell_y_index)
     numbers_in_own_cube(cell_x_index, cell_y_index).flatten.each{ |num| eliminate_possible_numbers(num) }
   end
@@ -91,6 +92,83 @@ class Sudoku
     if @possible_numbers.any?{|num|num == int}
       @possible_numbers.delete(int)
     end
+=======
+
+  def numbers_in_parallel_row(cell_x_index, cell_y_index)
+    # input: x index of cell (int) and y index of cell (int)
+    # output: 2d array consisiting of numbers from both parallel rows (array)
+    case cell_x_index % 3
+      when 0
+        # if own_row is at the top of the cube, return the next 2 rows
+        # puts "top row"
+        row1 = @board[cell_x_index + 1]
+        row2 = @board[cell_x_index + 2]
+      when 1
+        # if own_row is in the middle of the cube, return the rows to its top and bottom
+        # puts "middle row"
+        row1 = @board[cell_x_index - 1]
+        row2 = @board[cell_x_index + 1]
+      when 2
+        #if own_row is at the bottom, return the 2 rows on top
+        # puts "bottom row"
+        row1 = @board[cell_x_index - 1]
+        row2 = @board[cell_x_index - 2]
+      end
+      return [row1, row2]
+  end
+
+  def numbers_in_parallel_column(cell_x_index, cell_y_index)
+    # input: x index of cell (int) and y index of cell (int)
+    # output: 2d array consisiting of numbers from both parallel columns (array)
+    case cell_x_index % 3
+      when 0
+        # if own_col is on the left side of the cube, return the 2 columns to its right
+        # puts "left col"
+        row1 = []
+        row_counter = 0
+        9.times {
+          row1 << @board[row_counter][cell_y_index + 1]
+          row_counter += 1
+        }
+        row_counter = 0
+        row2 = []
+        9.times {
+          row2 << @board[row_counter][cell_y_index + 2]
+          row_counter += 1
+        }
+      when 1
+        # if own_col is in the middle of the cube, return the columns to its left and right
+        # puts "mid col"
+        row1 = []
+        row_counter = 0
+        9.times {
+          row1 << @board[row_counter][cell_y_index - 1]
+          row_counter += 1
+        }
+        row_counter = 0
+        row2 = []
+        9.times {
+          row2 << @board[row_counter][cell_y_index + 1]
+          row_counter += 1
+        }
+      when 2
+        # if own_col is on the right side of the cube, return the 2 columns to its left
+        # puts "right col"
+        row1 = []
+        row_counter = 0
+        9.times {
+          row1 << @board[row_counter][cell_y_index - 1]
+          row_counter += 1
+        }
+        row_counter = 0
+        row2 = []
+        9.times {
+          row2 << @board[row_counter][cell_y_index - 2]
+          row_counter += 1
+        }
+      end
+      return [row1, row2]
+>>>>>>> master
   end
 
   def examine_numbers_in_parallel_columns(parallel_nums)
@@ -203,6 +281,7 @@ actual values that we derived from the indices found in
     end
   end
 
+<<<<<<< HEAD
 
   def numbers_in_parallel_row(cell_x_index, cell_y_index)
     # input: x index of cell (int) and y index of cell (int)
@@ -288,6 +367,8 @@ actual values that we derived from the indices found in
    return 1
   end
 
+=======
+>>>>>>> master
   def solve
     p "parallel rows: "
     p numbers_in_parallel_row(3, 3)
@@ -322,6 +403,7 @@ actual values that we derived from the indices found in
     end
     return board_as_string
   end
+<<<<<<< HEAD
 end
 
 game = Sudoku.new("1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--")
@@ -361,3 +443,6 @@ p game.possible_numbers
 
 
 
+=======
+end
+>>>>>>> master
