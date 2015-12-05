@@ -16,8 +16,8 @@ require_relative 'sudoku'
 board_string = File.readlines('sudoku_puzzles.txt').first.chomp
 
 game = Sudoku.new(board_string)
-p game.board
-p game.create_possible_numbers
+game.pretty_print_board
+# puts game.to_s
 
-# game.solve
+game.solve
 # puts game
