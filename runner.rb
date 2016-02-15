@@ -29,3 +29,9 @@ if solved?(solved_board)
 else
   puts "Board is not solvable!"
 end
+game = Sudoku.new(board_string)
+game.pretty_print_board
+# puts game.to_s
+
+game.solve
+# puts game

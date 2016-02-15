@@ -1,29 +1,27 @@
 # Sudoku
 
-## Learning Competencies
-
-* Model a simple real-world system in Ruby code
-* Use Pseudocode effectively to model problem-solving
-
 ## Summary
-
-By the end of this challenge you'll have a fully-functioning Sudoku solver that you can run from the command line.
+![solving sequence animation](readme-assets/sequence.gif)
+*Figure 1*.  Animation solving a sudoku puzzle and partially verifying the solution.
 
 [Sudoku](http://en.wikipedia.org/wiki/Sudoku) is a logic-based, combinatorial number-placement puzzle. The objective is to fill a 9×9 grid with digits so that each column, each row, and each of the nine 3×3 sub-grids that compose the grid (also called "boxes") contains the digits from 1 to 9.
+
 
 Generally, a puzzle provides a partial solution so that some squares already have numbers.  To solve the puzzle, you fill in the unsolved squares.
 
 ![Unsolved](http://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png) ![Solved Sudoku](http://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Sudoku-by-L2G-20050714_solution.svg/250px-Sudoku-by-L2G-20050714_solution.svg.png)
 
-In this challenge, you are presented with **15** unsolved Sudoku puzzles.  The puzzles can be found in the `source/sudoku_puzzles.txt` file.  
+In this challenge, you are presented with **15** unsolved Sudoku puzzles.  The puzzles can be found in the `source/sudoku_puzzles.txt` file.
 
 * Five puzzles can be solved with **basic logic**.
-* Five require slightly more **advanced logic**.  
-* Five require **educated guessing**.  
+* Five require slightly more **advanced logic**.
+* Five require **educated guessing**.
 * A complete solution will solve **all 15 puzzles**.
 
-## Pre-releases 
+
+## Pre-releases
 ### Modeling: The Language of Sudoku
+
 
 A computer program that solves Sudoku is simulating the *player*, which means the better you can empathize with the player the more likely you'll understand how to write a Sudoku solver. What are the names of various parts of the Sudoku puzzle? What are the actions a player takes when solving a Sudoku puzzle?
 
@@ -31,12 +29,15 @@ Understanding the person playing the game is key.  What is the player doing when
 
 ### Modeling: Strategies for Humans
 
-Get out an actual Sudoku puzzle, printed on a piece of paper. Play it with your group. Pay attention to yourself and to each other.
 
-1. What strategies are you adopting and why?
-2. How do you choose where to start?
-3. How do you know when to really put a number in a square?
-4. What do you do when you don't definitively know how to fill in any more squares?
+
+- What strategies are we adopting and why?
+- How do we choose where to start?
+- How do we know when to really put a number in a square?
+- What do we do when we don't definitively know how to fill in any more squares?
+
+Reflecting on our human strategy, it's important to see that sometimes the strategies that work for humans would be difficult to implement on a computer.  However, the reverse is also true: strategies humans avoid because we'd have to write too much, use too many sheets of paper, or remember too much information are possible for a computer.
+
 
 As you reflect on your human strategy, it's important to see that sometimes the strategies that work for *humans* might not be easy to implement on a computer. *And vice versa*, computers might have an easy time using strategies we avoid because we'd have to write too much, use too many sheets of paper, or remember too much information.
 
@@ -56,9 +57,10 @@ The following restrictions are in place as you work on this challenge:
 You will be writing methods that accept arguments and return values to build your solver.
 
 ## Testing
-Good news: you will be creating many small methods, and small methods are easier to test. 
+Good news: you will be creating many small methods, and small methods are easier to test.
 
 The number of tests you write is completely up to you. Testing is for _you_, and will help you develop code. You _must_ balance testing with the need to write code and make progress on the solution.
+
 
 ## Releases
 ### Release 0 : Basic Logic
@@ -76,7 +78,7 @@ The form your board takes as you pass it around is up to you, but certain method
 ##### Method: `solve`
 The `solve` method will take a puzzle in as a string from the puzzle file. It will return a board in some form after your program has solved it (or done the best it could).
 
-**Do not stick everything inside** `solve`**!** Break your problem apart into _small methods_. Combine your smaller methods into bigger methods. This is known as *function composition* and it's a critical to managing complexity of your code. 
+**Do not stick everything inside** `solve`**!** Break your problem apart into _small methods_. Combine your smaller methods into bigger methods. This is known as *function composition* and it's a critical to managing complexity of your code.
 
 ##### Method: `solved?`
 Your `solved?` method should accept a board in whatever form you're using and return true or false based on whether the board is solved.
@@ -86,7 +88,7 @@ Your `solved?` method should accept a board in whatever form you're using and re
 
 ##### Method: `pretty_board`
 `pretty_board` should take in a board in some form and a return a string that's well formatted for output to the screen. No `puts` here either!
-  
+
 Your `pretty_board` method might yield something like this when it's printed.
 
 ```
@@ -112,18 +114,19 @@ For example:
 
 `"1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--"`
 
-### Release 1 :  More Advanced Logic
 
-**Improve your Sudoku solver to solve the next five puzzles.**
+### Release 1:  More Advanced Logic
+Puzzles 6 - 10 can be solved using logic alone but require more than just identifying when a square has only one possible value.  Let's enhance the behavior of our `Sudoku#solve` method to solve these puzzles.
 
-Puzzles 6 - 10 can be solved using logic alone but require more than just identifying when a square has only one possible value.
+*Note:* The `#solve` method should still give up if it gets stuck.
 
-The `solve` method should still give up if it gets stuck.
+
 
 ### Release 2:  Educated Guessing
+Puzzles 11 - 15 can be solved by making informed guesses about the values of unsolved squares and then trying to solve the puzzles based on those guessed values.  Guessing should be started once our `Sudoku#solve` method gets stuck.  In other words, solve as many squares as possible using logic and then start guessing.
 
-**Improve your Sudoku solver to solve all of the puzzles.**
 
-Puzzles 11 - 15 can be solved by making informed guesses about the values of squares and then trying to solve the puzzles based on those guessed values.
 
-Guessing should be started once your `solve` method gets stuck.  In other words, solve as many squares as possible using logic and then start guessing.
+## Conclusion
+Writing a Sudoku solver presents a lot of problems:  identifying the logic involved in the game itself, translating that logic to code, manipulating data structures, etc.  It provides a nice comprehensive challenge, summing the skills that we've developed to this point at Dev Bootcamp.
+
